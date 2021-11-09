@@ -1,9 +1,8 @@
 const router = require('express').Router()
 
+const con = require('../database/db');
 
-const connection = require('../database/db');
 
-const bcrypt = require('bcrypt');
 
 //importando la libreria de encriptacion
 require('dotenv').config()
@@ -14,10 +13,12 @@ const hashearPassword = require('../helpers/hashear');
 const { application } = require('express');
 
 
-router.post('/user' ,  async (req, res) => {
-    let name  = req.body.username;
-    let email = req.body.email;
-    let password = req.body.password
+router.post('/user', async (req, res) => {
+    const name = req.body.name;
+    const user = req.body.user;
+    const password = req.body.password
+
+    
 
     if (!password.lenght > 8) {
         res.json({error: 'Password muy corto'})
@@ -25,16 +26,14 @@ router.post('/user' ,  async (req, res) => {
 
     const hashed_pass =  await hashearPassword(password)    
 
-    const [result, cfieldds]  = await  connection(`INSERT into users (name, email, password) values(?,?,?)`, [name, email, hashed_pass])
-    
+    const [result, cfieldds]  = await  con(`INSERT into users (name, user, password) values(?,?,?)`, [name, user, hashed_pass])
 
-    if (error){
-
-        console.log(error)
-       
-    }
     res.json(result)
            
 });
 
+
+
+
 module.exports = router;
+
