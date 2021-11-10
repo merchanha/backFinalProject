@@ -20,15 +20,17 @@ router.post('/user', async (req, res) => {
 
     
 
-    if (!password.lenght > 8) {
+    if (!password.lenght < 8) {
         res.json({error: 'Password muy corto'})
     }
 
     const hashed_pass =  await hashearPassword(password)    
 
-    const [result, cfieldds]  = await  con(`INSERT into users (name, user, password) values(?,?,?)`, [name, user, hashed_pass])
+    con.query(`INSERT into users (name, user, password) values(?,?,?)`, [name, user, hashed_pass], (err, result)=>{
+        console.log(err)
+    })
 
-    res.json(result)
+ 
            
 });
 

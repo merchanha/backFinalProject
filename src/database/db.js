@@ -1,23 +1,21 @@
-const mysql = require('mysql');
+
+
+const mysql = require('mysql')
 
 require('dotenv').config()
 
 
 
 
-const con = async (query, bindings = []) => {
-    const connection = await mysql.createConnection({
+
+    const con = mysql.createConnection({
         host: process.env.DB_HOST,
         user: process.env.DB_USER,
-        database: process.env.DB_NAME
+        database: process.env.DB_DATABASE
     });
 
-    const [rows , fields] = await connection.execute(query, bindings)
+       
 
-    connection.destroy()  
-
-    return [rows, fields]     
-}
 
 
 
