@@ -1,6 +1,7 @@
 const con = require('../db')
 
 const query = `CREATE table if not exists consultas(
+    id INT,
     nombre varchar(150), 
     apellido varchar(150),
     telefono varchar(50),
