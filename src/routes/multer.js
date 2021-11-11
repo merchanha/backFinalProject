@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const multer = require('multer')
-const conn = require('../database/db')
+const con = require('../database/db')
 
 const storage = multer.diskStorage({
     destination: (req, file, cd) => {
@@ -19,7 +19,7 @@ const fileManager = multer({storage: storage})
 router.post('/fotos',  fileManager.single('avatar'), async (req, res) =>{
     
     let user_id = 17;
-    const [result, cfieldds]  = await  conn(`update users set imagen = ? `, [req.file.filename])
+    const [result, cfieldds]  = await  con(`update users set imagen = ? `, [req.file.filename])
 
     res.send('recibido')
 })  
