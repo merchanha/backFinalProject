@@ -16,7 +16,7 @@ const storage = multer.diskStorage({
 })
 const fileManager = multer({storage: storage})
 
-router.post('/fotos',  fileManager.single('avatar'), async (req, res) =>{
+router.post('/Form',  fileManager.single('avatar'), async (req, res) =>{
 
     const nombre = req.body.nombre;
     const apellido = req.body.apellido;
