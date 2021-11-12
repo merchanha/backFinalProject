@@ -45,9 +45,12 @@ router.post('/Login', async (req, res) => {
 
     if (match) {
 
+    
         const token = jwt.sign({data:result[0]}, process.env.SECRET_KEY )
 
+    
         res.json({token, authorized:true})
+       
     }else{
         res.json({authorized:false, error: "Invalid password or email"})
     }    

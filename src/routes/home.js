@@ -1,5 +1,6 @@
 const express = require('express')
 const router = express.Router()
+
 const multer = require('multer')
 const con = require('../database/db')
 
@@ -20,11 +21,14 @@ router.post('/Form',  fileManager.single('avatar'), async (req, res) =>{
 
     const nombre = req.body.nombre;
     const apellido = req.body.apellido;
-    const telefono = req.body.apellido;
-    const imagen = req.file.filename;
+    const telefono = req.body.telefono;
+    const imagen = req.body.file.filename;
     const comentarios = req.body.comentarios;
     
     const [result, cfieldds]  = await  con(`INSERT into consultas (nombre, apellido, telefono, imagen, comentarios) values(?,?,?,?,?)`, [nombre, apellido, telefono,imagen,comentarios], [req.file.filename])
 
-    res.send('recibido')
+    res.send(result)
 })  
+
+
+module.exports = router;
