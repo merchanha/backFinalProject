@@ -54,7 +54,20 @@ router.post('/Login', async (req, res) => {
     }else{
         res.json({authorized:false, error: "Invalid password or email"})
     }    
-})    
+}) 
+
+
+
+
+
+router.get('/Producto', eJwt({secret: process.env.SECRET_KEY, algorithms:  ['HS256'] }) , async (req, res, next) => {
+    let cookie = req.cookies.primeracookie
+    if (cookie == "autorizado") {
+      const user_id  = req.user.data.id;
+        res.json({user:req.user.data })  
+    }
+    res.json({authorized:false})    
+})
 
 
 
